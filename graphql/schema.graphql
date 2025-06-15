@@ -16,6 +16,7 @@ type Query {
     users(
       "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
       name: String @where(operator: "like")
+        orderBy: [OrderByInput!]
     ): [User!]! @paginate(defaultCount: 10)
 }
 
@@ -39,3 +40,12 @@ type User {
     "When the account was last updated."
     updated_at: DateTime!
 }
+
+"Custom orderBy input for clean sorting logic."
+input OrderByInput {
+    "Column to sort by, e.g. `name`, `email`, or `profile.country`"
+    column: String!
+    "Sort direction: ASC or DESC"
+    direction: String!
+}
+
